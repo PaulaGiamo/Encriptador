@@ -22,9 +22,10 @@
 
     <main>
         
-        <div class="contenido"><canvas width="800px" height="40px"></canvas>
+        <div class="contenido"><!--<canvas width="800px" height="40px"></canvas>-->
             <h2> 🔑  Texto Base  🔑 </h2>
-            <textarea id="texto1" class="textIN" cols="50" rows="10" placeholder="✰✰✰ Ingresar texto aquí ✰✰✰"></textarea>
+            <textarea id="texto1" class="textIN" placeholder="✰✰✰ Ingresar texto aquí ✰✰✰"></textarea>
+            <!--cols="50" rows="10-->
             <label for="texto1" class="warning">⚠ Solo texto en minúsculas y sin acentos</label>
             <div class="botones">
             <input type="submit" value="Encriptar" onclick="encriptar()"><input type="submit" onclick="desencriptar()" value="Desencriptar">
@@ -39,7 +40,7 @@
 
         <div class="lado" id="con" style="display: none;">  
             <h2>🔒 Resultado ↓↓↓</h2>  
-            <textarea id="resul" cols=20 rows="10"></textarea>
+            <textarea id="resul" ></textarea><!--cols=20 rows="10"-->
             <button onclick="copiar()">Copiar al portapapeles</button>
         </div>
       
