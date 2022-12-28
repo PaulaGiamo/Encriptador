@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 1 - ONEG4</title>
+    <link href="miestilo.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Love+Ya+Like+A+Sister&display=swap" rel="stylesheet">
+   
+
+
+    
+</head>
+<body>
+    <header>
+        
+        <img id="logoAlura" src="Logo.png">
+    </header>
+    <div class="lineaArriba"></div>
+
+    <main>
+        
+        <div class="contenido"><canvas width="800px" height="40px"></canvas>
+            <h2> 🔑  Texto Base  🔑 </h2>
+            <textarea id="texto1" class="textIN" cols="50" rows="10" placeholder="✰✰✰ Ingresar texto aquí ✰✰✰"></textarea>
+            <label for="texto1" class="warning">⚠ Solo texto en minúsculas y sin acentos</label>
+            <div class="botones">
+            <input type="submit" value="Encriptar" onclick="encriptar()"><input type="submit" onclick="desencriptar()" value="Desencriptar">
+            <input type="button" value="Pegar de portapapeles" id="btnG" onclick="pegar()">
+            </div>
+        </div>
+
+        <div class="lado" id="sin">
+            <img src="Muneco.png" width="70%" >
+            <p>No hay texto ingresado</p>   
+        </div>
+
+        <div class="lado" id="con" style="display: none;">  
+            <h2>🔒 Resultado ↓↓↓</h2>  
+            <textarea id="resul" cols=20 rows="10"></textarea>
+            <button onclick="copiar()">Copiar al portapapeles</button>
+        </div>
+      
+
+   
+    </main>
+    <div class="lineaAbajo"></div>
+    
+    <footer>
+        <h3 id="firma">Desarrollado por Paula Giaimo 🍀 pgiaimo@abc.gob.ar</h3>
+        
+    </footer>
+
+    <script>
+        function mostrar(){
+            document.getElementById("con").style="display:inline-block";
+            document.getElementById("sin").style="display:none";
+        }
+        function ocultar(){
+            document.getElementById("con").style="display:none";
+            document.getElementById("sin").style="display:inline-block";
+        }
+      
+        
+        function copiar(){
+            var texto=document.querySelector("#resul").value;
+            if(texto){
+                document.querySelector("#resul").select();
+                //document.execCommand("copy");
+                navigator.clipboard.writeText(texto);
+            }
+        }
+
+        function pegar(){
+            
+            /*esta parte si funciona para ver en consola!!
+          navigator.clipboard.readText().then((text) => {
+                console.log('clipboard contents', text)
+                    })*/
+                   navigator.clipboard.readText().then((text) => {
+                
+                    document.querySelector(".textIN").value=text;});
+              
+          
+            }
+        
+        function encriptar(){
+        
+                var texto=document.querySelector(".textIN").value;
+                var encriptado=[];
+                var resultado="";
+                console.log(texto);
+                console.log(encriptado);
+                for(i=0;i<texto.length;i++){
+                    switch(texto[i]){
+                        case "a":
+                            encriptado.push("ai");
+                            break;
+                        case "e":
+                            encriptado.push("enter");
+                            break;
+                        case "i":
+                            encriptado.push("imes");
+                            break;
+                        case "o":
+                            encriptado.push("ober");
+                            break;
+                        case "u":
+                            encriptado.push("ufat");
+                            break;
+                        default:
+                            encriptado.push(texto[i]);
+                            break;
+                    }
+                }
+                for(i=0;i<encriptado.length;i++){
+                    resultado=resultado+encriptado[i];
+                }
+                document.querySelector("#resul").value=resultado;
+                if(document.querySelector(".textIN").value==""){
+                ocultar();
+                }
+                else{
+                    mostrar();
+                }
+            
+
+            }
+
+        function desencriptar(){
+                var texto=document.querySelector(".textIN").value;
+                                
+                var cona=texto.replace(/ai/g,"a");
+                var cone=cona.replace(/enter/g,"e");
+                var coni=cone.replace(/imes/g,"i");
+                var cono=coni.replace(/ober/g,"o");
+                var conu=cono.replace(/ufat/g,"u");
+                console.log(texto);
+                console.log(conu);
+                //document.querySelector(".textIN").value=cona;
+                document.querySelector("#resul").value=conu;
+               
+                if(document.querySelector(".textIN").value==""){
+                ocultar();
+                }
+                else{
+                    mostrar();
+                }
+            
+                
+            }
+
+            
+            
+        </script>
+</body>
+</html>
