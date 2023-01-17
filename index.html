@@ -24,7 +24,7 @@
         
         <div class="contenido"><!--<canvas width="800px" height="40px"></canvas>-->
             <h2> 🔑  Texto Base  🔑 </h2>
-            <textarea id="texto1" class="textIN" placeholder="✰✰✰ Ingresar texto aquí ✰✰✰"></textarea>
+            <textarea id="texto1" class="textIN" placeholder="✰✰✰ Ingresar texto aquí ✰✰✰" ></textarea>
             <!--cols="50" rows="10-->
             <label for="texto1" class="warning">⚠ Solo texto en minúsculas y sin acentos</label>
             <div class="botones">
@@ -55,6 +55,9 @@
     </footer>
 
     <script>
+        var textoIngresado=document.getElementById("texto1");
+        textoIngresado.addEventListener("keypress",sinAcentos);
+
         function mostrar(){
             document.getElementById("con").style="display:inline-block";
             document.getElementById("sin").style="display:none";
@@ -153,7 +156,49 @@
                 
             }
 
-            
+            function sinAcentos(evento){
+                //var x="nada",y;
+                var mitext=document.getElementById("texto1").value;
+                 /*
+                    console.log(mitext);
+                    console.log(evento.key);
+                
+                    if(evento.key=="a"){
+                        document.getElementById("texto1").value=mitext +"otraletra";
+                        /*document.getElementById("texto1").value=mitext +"otraletra";
+                        x="m";/*cerca, falta que no escriba la a...
+                        
+                    event.preventDefault();
+                    }
+                */
+               switch(evento.key){
+                case "á":
+                document.getElementById("texto1").value=mitext +"a";
+                event.preventDefault();
+                break;
+                case "é":
+                document.getElementById("texto1").value=mitext +"e";
+                event.preventDefault();
+                break;
+                case "í":
+                document.getElementById("texto1").value=mitext +"i";
+                event.preventDefault();
+                break;
+                case "ó":
+                document.getElementById("texto1").value=mitext +"o";
+                event.preventDefault();
+                break;
+                case "ú":
+                document.getElementById("texto1").value=mitext +"u";
+                event.preventDefault();
+                break;
+
+               }
+                //console.log(x);
+                console.log(mitext);
+               
+                
+            }
             
         </script>
 </body>
