@@ -28,6 +28,7 @@
             <!--cols="50" rows="10-->
             <label for="texto1" class="warning">⚠ Solo texto en minúsculas y sin acentos</label>
             <div class="botones">
+            <input type="submit" value="Definir Código" onclick="definirCodigo()">
             <input type="submit" value="Encriptar" onclick="encriptar()"><input type="submit" onclick="desencriptar()" value="Desencriptar">
             <input type="button" value="Pegar de portapapeles" id="btnG" onclick="pegar()">
             </div>
@@ -89,6 +90,17 @@
               
           
             }
+
+        var codA="ai", codE="enter", codI="imes", codO="ober", codU="ufat";    
+
+        function definirCodigo(){
+            codA=prompt("Ingrese codigo para letra A");
+            codE=prompt("Ingrese codigo para letra E");
+            codI=prompt("Ingrese codigo para letra I");
+            codO=prompt("Ingrese codigo para letra O");
+            codU=prompt("Ingrese codigo para letra U");
+
+        }
         
         function encriptar(){
         
@@ -100,19 +112,24 @@
                 for(i=0;i<texto.length;i++){
                     switch(texto[i]){
                         case "a":
-                            encriptado.push("ai");
+                        case "A":
+                            encriptado.push(codA);
                             break;
                         case "e":
-                            encriptado.push("enter");
+                        case "E":
+                            encriptado.push(codE);
                             break;
                         case "i":
-                            encriptado.push("imes");
+                        case "I":
+                            encriptado.push(codI);
                             break;
                         case "o":
-                            encriptado.push("ober");
+                        case "O":
+                            encriptado.push(codO);
                             break;
                         case "u":
-                            encriptado.push("ufat");
+                        case "U":
+                            encriptado.push(codU);
                             break;
                         default:
                             encriptado.push(texto[i]);
@@ -122,6 +139,7 @@
                 for(i=0;i<encriptado.length;i++){
                     resultado=resultado+encriptado[i];
                 }
+                console.log("resultado es :"+resultado);
                 document.querySelector("#resul").value=resultado;
                 if(document.querySelector(".textIN").value==""){
                 ocultar();
@@ -135,16 +153,80 @@
 
         function desencriptar(){
                 var texto=document.querySelector(".textIN").value;
-                                
-                var cona=texto.replace(/ai/g,"a");
-                var cone=cona.replace(/enter/g,"e");
-                var coni=cone.replace(/imes/g,"i");
-                var cono=coni.replace(/ober/g,"o");
-                var conu=cono.replace(/ufat/g,"u");
-                console.log(texto);
-                console.log(conu);
-                //document.querySelector(".textIN").value=cona;
-                document.querySelector("#resul").value=conu;
+                var porA=new RegExp(codA,"g");      
+                var porE=new RegExp(codE,"g");   
+                var porI=new RegExp(codI,"g");   
+                var porO=new RegExp(codO,"g");   
+                var porU=new RegExp(codU,"g");    
+                          
+                // #region PROBLEMAS      
+
+                //problema: si cambio el codigo por vocales, al cambiar de a una toma las nuevas ya cambiadas como posibles cambios
+                //para resolverlo debo identificar los cambios sobre el texto original, no sobre los resultados parciales
+
+                //recorrer el string uno x uno... ok para codigo de una letra pero inutil si es conjunto
+                /*
+                var posA= new Array(texto.length);
+
+                for(var i=0; i<texto.length; i++){
+                    console.log(texto[i]);
+
+                    switch(texto[i]){
+                        case codA:
+                            posA[i]="a";
+                            break;
+                        case codE:
+                            posA[i]="e";
+                            break;
+                        case codI:
+                            posA[i]="i";
+                            break;
+                        case codO:
+                            posA[i]="o";
+                            break;
+                        case codU:
+                            posA[i]="u";
+                            break;
+                        default:
+                            posA[i]=texto[i];
+                    }
+                    
+
+                }
+                console.log("desencriptado por array: "+posA);
+                 //con el join estoy quitandole el separador ,
+               // document.querySelector("#resul").value=posA.join("");
+               no funciona para codigo de mas de un caracter
+                */
+                  
+                //#endregion
+                //paso una vez y cambio codigo por un codigo que sea dificil que alguien escriba en texto:
+
+
+                var cona=texto.replace(porA,"X1Z");
+                var cone=cona.replace(porE,"X2Z");
+                var coni=cone.replace(porI,"X3Z");
+                var cono=coni.replace(porO,"X4Z");
+                var conu=cono.replace(porU,"X5Z");
+                
+
+                //paso segunda vez para dar el valor real (y evitar asi que cambie un valor resultado en vez de origen)
+                cona=conu.replace(/X1Z/g,"a");
+                cone=cona.replace(/X2Z/g,"e");
+                coni=cone.replace(/X3Z/g,"i");
+                cono=coni.replace(/X4Z/g,"o");
+                conu=cono.replace(/X5Z/g,"u");
+                
+               // console.log(texto);
+               
+                console.log("con a:"+porA);
+                console.log("con e: "+porE);
+                console.log("con i: "+porI);
+                console.log("con o: "+porO);
+                console.log("con u:"+porU);
+                
+                document.querySelector("#resul").value=conu; 
+              
                
                 if(document.querySelector(".textIN").value==""){
                 ocultar();
@@ -173,22 +255,27 @@
                 */
                switch(evento.key){
                 case "á":
+                case "Á":
                 document.getElementById("texto1").value=mitext +"a";
                 event.preventDefault();
                 break;
                 case "é":
+                case "É":
                 document.getElementById("texto1").value=mitext +"e";
                 event.preventDefault();
                 break;
                 case "í":
+                case "Í":
                 document.getElementById("texto1").value=mitext +"i";
                 event.preventDefault();
                 break;
                 case "ó":
+                case "Ó":
                 document.getElementById("texto1").value=mitext +"o";
                 event.preventDefault();
                 break;
                 case "ú":
+                case "Ú":
                 document.getElementById("texto1").value=mitext +"u";
                 event.preventDefault();
                 break;
